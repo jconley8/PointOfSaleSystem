@@ -22,7 +22,7 @@ public class QuantityDiscount implements DiscountStrategy {
     @Override
     public double getDiscountAmount(double price, double quantity) {
         double discountAmount;
-
+        //further validation needed
         if (quantity < minimumQuantityForDiscount) {
             discountAmount = 0;
         } else {
@@ -36,7 +36,7 @@ public class QuantityDiscount implements DiscountStrategy {
     @Override
     public double getTotalAfterDiscount(double price, double quantity) {
         double totalAfterDiscount;
-
+        //further validation needed
         if (quantity < minimumQuantityForDiscount) {
             totalAfterDiscount = price * quantity;
         } else {
@@ -59,6 +59,7 @@ public class QuantityDiscount implements DiscountStrategy {
     }
 
     public void setMinimumQuantityForDiscount(double minimumQuantityForDiscount) {
+        //validation needed
         this.minimumQuantityForDiscount = minimumQuantityForDiscount;
     }
 
@@ -67,6 +68,7 @@ public class QuantityDiscount implements DiscountStrategy {
     }
 
     public void setPercentOff(double percentOff) {
+        //validation needed
         this.percentOff = percentOff;
     }
 
