@@ -17,16 +17,16 @@ public class FlatRateDiscount implements DiscountStrategy {
     }
     
     @Override
-    public double getDiscountAmount (double price) {
+    public double getDiscountAmount (double price, double quantity) {
         //validation needed
-        return price - (price - flatRateDiscount);
+        return (price * quantity) - (price - flatRateDiscount);
     }
    
     @Override
-    public double getTotalAfterDiscount (double price) {
+    public double getTotalAfterDiscount (double price, double quantity) {
         //validation needed
         
-        return price - flatRateDiscount;
+        return (price * quantity) - flatRateDiscount;
     }
 
     public double getFlatRateOff() {
@@ -41,8 +41,8 @@ public class FlatRateDiscount implements DiscountStrategy {
     public static void main(String[] args) {
         FlatRateDiscount flatRate = new FlatRateDiscount(10.00);
         
-        System.out.println("Discount amount: " + flatRate.getDiscountAmount(15.00));
-        System.out.println("Total after discount: " + flatRate.getTotalAfterDiscount(15.00));
+        System.out.println("Discount amount: " + flatRate.getDiscountAmount(15.00, 1));
+        System.out.println("Total after discount: " + flatRate.getTotalAfterDiscount(15.00, 1));
         
     }
 }
