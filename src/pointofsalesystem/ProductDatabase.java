@@ -32,6 +32,7 @@ public class ProductDatabase {
     }
 
     public static void main(String[] args) {
+        
         ProductDatabase db = new ProductDatabase();
 
         System.out.println(db.findProduct("A1504").getProductDescription());
