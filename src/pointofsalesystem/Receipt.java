@@ -10,6 +10,9 @@ import java.text.NumberFormat;
 
 /**
  *
+ * 
+ * 
+ * 
  * @author Josh
  */
 public class Receipt {

@@ -6,8 +6,9 @@
 package pointofsalesystem;
 
 /**
- *
+ * 
  * @author Josh
+ * 
  */
 public class ProductDatabase {
 
@@ -25,7 +26,6 @@ public class ProductDatabase {
         for (Product p : products) {
             if (productID.equals(p.getProductID())) {
                 product = p;
-                break;
             }
         }
         return product;
