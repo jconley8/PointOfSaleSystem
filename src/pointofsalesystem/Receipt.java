@@ -19,7 +19,6 @@ public class Receipt {
     private LineItem[] lineItems;
 
     public Receipt() {
-        receiptNumber++;
         lineItems = new LineItem[0];
     }
 
@@ -38,6 +37,9 @@ public class Receipt {
     }
 
     public void outputReceipt() {
+        receiptNumber++;
+        double netTotal = 0;
+        double totalSaved = 0;
         Date date = new Date();
         StringBuilder s = new StringBuilder();
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
@@ -47,7 +49,7 @@ public class Receipt {
         s.append("\nReceipt number: ").append(receiptNumber);
         s.append("\n\nID       Item                  Price      Qty     Subtotal      Discount");
         s.append("\n------------------------------------------------------------------------\n");
-        
+
         for (LineItem item : lineItems) {
             s.append(item.getProduct().getProductID()).append("    ");
             s.append(item.getProduct().getProductDescription()).append("    ");
@@ -55,21 +57,16 @@ public class Receipt {
             s.append(item.getQuantity()).append("     ");
             s.append(formatter.format(item.getCalculatedSubTotal())).append("        ");
             s.append(formatter.format(item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity()))).append("\n");
-          
+
+            netTotal += item.getCalculatedSubTotal();
+            totalSaved += item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity());
         }
         System.out.println(s);
-        
-        double netTotal = 0;
-        double totalSaved = 0;
-        for (LineItem item : lineItems) {           
-          netTotal += item.getCalculatedSubTotal();
-          totalSaved += item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity());
-        }
-        
+
         System.out.println("                                                   --------------------");
         System.out.println("                                                   Net Total:    " + formatter.format(netTotal));
         System.out.println("                                                   Total Saved:  " + formatter.format(totalSaved));
-        System.out.println("                                                   Total Due:    "  + formatter.format((netTotal - totalSaved)));
+        System.out.println("                                                   Total Due:    " + formatter.format((netTotal - totalSaved)) + "\n");
         lineItems = new LineItem[0];
     }
 }

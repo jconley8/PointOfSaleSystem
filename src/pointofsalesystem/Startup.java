@@ -17,5 +17,10 @@ public class Startup {
         register.ScanItem("A1504", 1);
         register.ScanItem("C5933", 5);
         register.printReceipt();
+
+        register.ScanItem("T4339", 1);
+        register.ScanItem("B7821", 3);
+        register.printReceipt();
+
     }
 }

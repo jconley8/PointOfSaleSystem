@@ -10,7 +10,7 @@ package pointofsalesystem;
  * @author Josh
  */
 public class LineItem {
-    
+
     private double subtotal;
     private double grandTotal;
     private double quantity;
@@ -21,23 +21,21 @@ public class LineItem {
         this.quantity = quantity;
         this.product = db.findProduct(productID);
     }
-   
+
     public double getCalculatedGrandTotal() {
-        //validation needed
         return (db.findProduct(product.getProductID()).getProductPrice());
     }
 
-    public double getCalculatedSubTotal () {
-        //validation needed
+    public double getCalculatedSubTotal() {
         return product.getProductPrice() * quantity;
     }
-    
-    
+
     public double getSubtotal() {
         return subtotal;
     }
 
     public void setSubtotal(double subtotal) {
+        //validation needed
         this.subtotal = subtotal;
     }
 
@@ -46,6 +44,7 @@ public class LineItem {
     }
 
     public void setGrandTotal(double grandTotal) {
+        //validation needed
         this.grandTotal = grandTotal;
     }
 
@@ -54,6 +53,7 @@ public class LineItem {
     }
 
     public void setQuantity(double quantity) {
+        //validation needed
         this.quantity = quantity;
     }
 
@@ -62,12 +62,8 @@ public class LineItem {
     }
 
     public void setProduct(Product product) {
+        //validation needed
         this.product = product;
     }
-    
-    
-    
-    
-    
-    
+
 }

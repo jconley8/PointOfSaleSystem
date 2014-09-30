@@ -12,7 +12,7 @@ package pointofsalesystem;
 public interface DiscountStrategy {
 
     public abstract double getDiscountAmount(double price, double quantity);
-    
+
     public abstract double getTotalAfterDiscount(double price, double quantity);
-    
+
 }

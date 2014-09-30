@@ -10,6 +10,7 @@ package pointofsalesystem;
  * @author Josh
  */
 public class Product {
+
     private String productID;
     private String productDescription;
     private double productPrice;
@@ -27,6 +28,7 @@ public class Product {
     }
 
     public void setProductID(String productID) {
+        //validation needed
         this.productID = productID;
     }
 
@@ -35,6 +37,7 @@ public class Product {
     }
 
     public void setProductDescription(String productDescription) {
+        //validation needed
         this.productDescription = productDescription;
     }
 
@@ -43,6 +46,7 @@ public class Product {
     }
 
     public void setProductPrice(double productPrice) {
+        //validation needed
         this.productPrice = productPrice;
     }
 
@@ -51,10 +55,8 @@ public class Product {
     }
 
     public void setDiscount(DiscountStrategy discount) {
+        //validation needed
         this.discount = discount;
     }
-    
-    
-    
-    
+
 }

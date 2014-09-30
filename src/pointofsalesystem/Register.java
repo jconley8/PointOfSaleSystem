@@ -18,8 +18,8 @@ public class Register {
         receipt.addLineItem(productID, quantity);
 
     }
-    
-    public void printReceipt () {
+
+    public void printReceipt() {
         receipt.outputReceipt();
     }
 
