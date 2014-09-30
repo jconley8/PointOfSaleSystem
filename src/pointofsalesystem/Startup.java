@@ -10,11 +10,12 @@ package pointofsalesystem;
  * @author Josh
  */
 public class Startup {
-    
+
     public static void main(String[] args) {
         Register register = new Register();
-        
+
         register.ScanItem("A1504", 1);
+        register.ScanItem("C5933", 5);
         register.printReceipt();
     }
 }

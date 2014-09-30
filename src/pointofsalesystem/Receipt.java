@@ -6,26 +6,25 @@
 package pointofsalesystem;
 
 import java.util.Date;
+import java.text.NumberFormat;
 
 /**
  *
  * @author Josh
  */
 public class Receipt {
-    
+
     private int receiptNumber = 0;
     private double quantity;
     private LineItem[] lineItems;
 
     public Receipt() {
+        receiptNumber++;
         lineItems = new LineItem[0];
     }
-    
-    
 
-    public final void addLineItem(final String productID, final double quantity) {
-        // needs validation
-        this.quantity = quantity;
+    public final void addLineItem(String productID, double quantity) {
+        // needs validation        
         LineItem item = new LineItem(productID, quantity);
         addToArray(item);
     }
@@ -40,18 +39,37 @@ public class Receipt {
 
     public void outputReceipt() {
         Date date = new Date();
+        StringBuilder s = new StringBuilder();
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
-        System.out.println("Thank you for shopping at Kohls!"
-                + "\nDate of Sale: " + date.toString()
-                + "\n\nID       Item                  Price      Qty     Subtotal        Discount"
-                + "\n-----------------------------------------------------------------------------");
+        s.append("Thank you for shopping at Kohls!");
+        s.append("\nDate of Sale: ").append(date.toString());
+        s.append("\nReceipt number: ").append(receiptNumber);
+        s.append("\n\nID       Item                  Price      Qty     Subtotal      Discount");
+        s.append("\n------------------------------------------------------------------------\n");
+        
         for (LineItem item : lineItems) {
-            System.out.println(item.getProduct().getProductID() + "    "
-                    + item.getProduct().getProductDescription() + "    "
-                    + item.getProduct().getProductPrice() + "       "
-                    + quantity + "     "
-                    + item.getCalculatedSubTotal(null)
-                    + item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), quantity));
+            s.append(item.getProduct().getProductID()).append("    ");
+            s.append(item.getProduct().getProductDescription()).append("    ");
+            s.append(formatter.format(item.getProduct().getProductPrice())).append("     ");
+            s.append(item.getQuantity()).append("     ");
+            s.append(formatter.format(item.getCalculatedSubTotal())).append("        ");
+            s.append(formatter.format(item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity()))).append("\n");
+          
         }
+        System.out.println(s);
+        
+        double netTotal = 0;
+        double totalSaved = 0;
+        for (LineItem item : lineItems) {           
+          netTotal += item.getCalculatedSubTotal();
+          totalSaved += item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity());
+        }
+        
+        System.out.println("                                                   --------------------");
+        System.out.println("                                                   Net Total:    " + formatter.format(netTotal));
+        System.out.println("                                                   Total Saved:  " + formatter.format(totalSaved));
+        System.out.println("                                                   Total Due:    "  + formatter.format((netTotal - totalSaved)));
+        lineItems = new LineItem[0];
     }
 }

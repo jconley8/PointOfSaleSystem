@@ -13,7 +13,6 @@ public class LineItem {
     
     private double subtotal;
     private double grandTotal;
-    private double taxRate = .05;
     private double quantity;
     private Product product;
     ProductDatabase db = new ProductDatabase();
@@ -22,20 +21,15 @@ public class LineItem {
         this.quantity = quantity;
         this.product = db.findProduct(productID);
     }
-
-    public double getCalculatedTax (String productID) {
-        //validation needed
-        return db.findProduct(productID).getProductPrice() * taxRate;
-    }
    
-    public double getCalculatedGrandTotal(String productID) {
+    public double getCalculatedGrandTotal() {
         //validation needed
-        return (db.findProduct(productID).getProductPrice() + getCalculatedTax(productID));
+        return (db.findProduct(product.getProductID()).getProductPrice());
     }
 
     public double getCalculatedSubTotal () {
         //validation needed
-        return (getCalculatedGrandTotal(product.getProductID()) * quantity) + getCalculatedTax(productID);
+        return product.getProductPrice() * quantity;
     }
     
     
@@ -53,14 +47,6 @@ public class LineItem {
 
     public void setGrandTotal(double grandTotal) {
         this.grandTotal = grandTotal;
-    }
-
-    public double getTaxRate() {
-        return taxRate;
-    }
-
-    public void setTaxRate(double taxRate) {
-        this.taxRate = taxRate;
     }
 
     public double getQuantity() {
