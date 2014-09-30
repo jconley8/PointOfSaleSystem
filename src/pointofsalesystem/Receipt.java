@@ -21,7 +21,7 @@ public class Receipt {
         lineItems = new LineItem[0];
     }
 
-    public final void addLineItem(String productID, double quantity) {
+    public void addLineItem(String productID, double quantity) {
         // needs validation        
         LineItem item = new LineItem(productID, quantity);
         addToArray(item);
