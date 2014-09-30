@@ -11,6 +11,10 @@ package pointofsalesystem;
  */
 public class Register {
 
+    public Register() {
+    
+    }
+
     Receipt receipt = new Receipt();
 
     public void ScanItem(String productID, double quantity) {

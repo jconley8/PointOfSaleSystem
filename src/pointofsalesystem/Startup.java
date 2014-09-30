@@ -21,6 +21,5 @@ public class Startup {
         register.ScanItem("T4339", 1);
         register.ScanItem("B7821", 3);
         register.printReceipt();
-
     }
 }

@@ -46,14 +46,6 @@ public class QuantityDiscount implements DiscountStrategy {
         return totalAfterDiscount;
     }
 
-    public static void main(String[] args) {
-        QuantityDiscount quantityDisc = new QuantityDiscount(3, .20);
-
-        System.out.println("Discount amount: " + quantityDisc.getDiscountAmount(20, 2));
-
-        System.out.println("Total after discount: " + quantityDisc.getTotalAfterDiscount(20, 2));
-    }
-
     public double getMinimumQuantityForDiscount() {
         return minimumQuantityForDiscount;
     }
@@ -70,6 +62,16 @@ public class QuantityDiscount implements DiscountStrategy {
     public void setPercentOff(double percentOff) {
         //validation needed
         this.percentOff = percentOff;
+    }
+
+    
+    //TEST CODE
+    public static void main(String[] args) {
+        QuantityDiscount quantityDisc = new QuantityDiscount(3, .20);
+
+        System.out.println("Discount amount: " + quantityDisc.getDiscountAmount(20, 2));
+
+        System.out.println("Total after discount: " + quantityDisc.getTotalAfterDiscount(20, 2));
     }
 
 }

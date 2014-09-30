@@ -15,7 +15,6 @@ import java.text.NumberFormat;
 public class Receipt {
 
     private int receiptNumber = 0;
-    private double quantity;
     private LineItem[] lineItems;
 
     public Receipt() {

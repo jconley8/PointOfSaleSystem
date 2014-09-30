@@ -38,6 +38,8 @@ public class PercentOffDiscount implements DiscountStrategy {
         this.percentOff = percentOff;
     }
 
+    
+    //TEST CODE
     public static void main(String[] args) {
         PercentOffDiscount percentOff = new PercentOffDiscount(.20);
 
