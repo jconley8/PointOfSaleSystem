@@ -15,15 +15,20 @@ import java.text.NumberFormat;
  * 
  * @author Josh
  */
-public class Receipt {
+public class ConsoleReceipt implements ReceiptOutputStrategy {
 
     private int receiptNumber = 0;
     private LineItem[] lineItems;
 
-    public Receipt() {
+    public ConsoleReceipt() {
         lineItems = new LineItem[0];
     }
 
+    /**
+     * This class adds a line item to the receipt after given productID and quantity
+     * @param productID - Unique identification number for a product
+     * @param quantity - The quantity of the product that the customer is purchasing
+     */
     public void addLineItem(String productID, double quantity) {
         // needs validation        
         LineItem item = new LineItem(productID, quantity);
@@ -38,6 +43,7 @@ public class Receipt {
         lineItems = tempItems;
     }
 
+    @Override
     public void outputReceipt() {
         receiptNumber++;
         double netTotal = 0;

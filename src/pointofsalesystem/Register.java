@@ -11,20 +11,31 @@ package pointofsalesystem;
  */
 public class Register {
 
-    public Register() {
-    
-    }
+    private ReceiptOutputStrategy outputStrategy;
 
-    Receipt receipt = new Receipt();
+    public Register(ReceiptOutputStrategy outputStrategy) {
+        this.outputStrategy = outputStrategy;
+    }   
+
 
     public void ScanItem(String productID, double quantity) {
         //validation needed        
-        receipt.addLineItem(productID, quantity);
+        outputStrategy.addLineItem(productID, quantity);
 
     }
 
     public void printReceipt() {
-        receipt.outputReceipt();
+        outputStrategy.outputReceipt();
     }
+
+    public ReceiptOutputStrategy getOutputStrategy() {
+        return outputStrategy;
+    }
+
+    public void setOutputStrategy(ReceiptOutputStrategy outputStrategy) {
+        this.outputStrategy = outputStrategy;
+    }
+    
+    
 
 }

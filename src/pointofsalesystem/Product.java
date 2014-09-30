@@ -29,7 +29,9 @@ public class Product {
     }
 
     public void setProductID(String productID) {
-        //validation needed
+        if(productID == null || productID.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         this.productID = productID;
     }
 
