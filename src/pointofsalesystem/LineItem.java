@@ -18,6 +18,7 @@ public class LineItem {
     ProductDatabase db = new ProductDatabase();
 
     public LineItem(String productID, double quantity) {
+        //validation needed
         this.quantity = quantity;
         this.product = db.findProduct(productID);
     }

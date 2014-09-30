@@ -17,6 +17,7 @@ public class Product {
     private DiscountStrategy discount;
 
     public Product(String productID, String productDescription, double productPrice, DiscountStrategy discount) {
+        //validation needed
         this.productID = productID;
         this.productDescription = productDescription;
         this.productPrice = productPrice;

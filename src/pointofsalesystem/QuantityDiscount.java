@@ -15,6 +15,7 @@ public class QuantityDiscount implements DiscountStrategy {
     private double percentOff;
 
     public QuantityDiscount(double minimumQuantityForDiscount, double percentOff) {
+        //validation needed
         this.minimumQuantityForDiscount = minimumQuantityForDiscount;
         this.percentOff = percentOff;
     }

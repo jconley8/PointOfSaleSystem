@@ -14,6 +14,7 @@ public class FlatRateDiscount implements DiscountStrategy {
     private double flatRateDiscount;
 
     public FlatRateDiscount(double flatRateOff) {
+        //validation needed
         this.flatRateDiscount = flatRateOff;
     }
 

@@ -14,6 +14,7 @@ public class PercentOffDiscount implements DiscountStrategy {
     private double percentOff;
 
     public PercentOffDiscount(double percentOff) {
+        //validation needed
         this.percentOff = percentOff;
     }
 
