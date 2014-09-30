@@ -10,10 +10,17 @@ package pointofsalesystem;
  * @author Josh
  */
 public class Register {
-    Receipt receipt = new Receipt ();
-    
-    public void ScanItem (String productID, double quantity) {
+
+    Receipt receipt = new Receipt();
+
+    public void ScanItem(String productID, double quantity) {
         //validation needed        
         receipt.addLineItem(productID, quantity);
+
     }
+    
+    public void printReceipt () {
+        receipt.outputReceipt();
+    }
+
 }

@@ -5,17 +5,27 @@
  */
 package pointofsalesystem;
 
+import java.util.Date;
+
 /**
  *
  * @author Josh
  */
 public class Receipt {
-
+    
+    private int receiptNumber = 0;
+    private double quantity;
     private LineItem[] lineItems;
-//    Date date = new Date();
+
+    public Receipt() {
+        lineItems = new LineItem[0];
+    }
+    
+    
 
     public final void addLineItem(final String productID, final double quantity) {
         // needs validation
+        this.quantity = quantity;
         LineItem item = new LineItem(productID, quantity);
         addToArray(item);
     }
@@ -28,4 +38,20 @@ public class Receipt {
         lineItems = tempItems;
     }
 
+    public void outputReceipt() {
+        Date date = new Date();
+
+        System.out.println("Thank you for shopping at Kohls!"
+                + "\nDate of Sale: " + date.toString()
+                + "\n\nID       Item                  Price      Qty     Subtotal        Discount"
+                + "\n-----------------------------------------------------------------------------");
+        for (LineItem item : lineItems) {
+            System.out.println(item.getProduct().getProductID() + "    "
+                    + item.getProduct().getProductDescription() + "    "
+                    + item.getProduct().getProductPrice() + "       "
+                    + quantity + "     "
+                    + item.getCalculatedSubTotal(null)
+                    + item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), quantity));
+        }
+    }
 }
