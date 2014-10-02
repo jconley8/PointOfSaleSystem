@@ -20,6 +20,8 @@ public class ConsoleReceiptOutput implements ReceiptOutputStrategy {
     private final String INDENT_TOTALS = "                                                    ";
     private int receiptNumber = 0;
     private LineItem[] lineItems;
+    private double netTotal = 0;
+    private double totalSaved = 0;
 
     public ConsoleReceiptOutput() {
         lineItems = new LineItem[0];
@@ -48,23 +50,31 @@ public class ConsoleReceiptOutput implements ReceiptOutputStrategy {
         lineItems = tempItems;
     }
 
+    private void calculateTotals() {
+        for (LineItem item : lineItems) {
+            netTotal += item.getCalculatedSubTotal();
+            totalSaved += item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity());
+        }
+    }
+
     @Override
     public void outputReceipt(String customerID) {
         CustomerDatabase customerDB = new CustomerDatabase();
         receiptNumber++;
-        double netTotal = 0;
-        double totalSaved = 0;
+
         Date date = new Date();
         StringBuilder s = new StringBuilder();
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
         s.append("Thank you for shopping at Kohl's!");
         s.append("\nDate of Sale: ").append(date.toString());
-        s.append("\nCustomer: ").append(customerDB.findCustomerByID(customerID).getCustomerFullName());
+        s.append("\nCustomer #").append(customerID).append(": ").append(customerDB.findCustomerByID(customerID).getCustomerFullName());
         s.append("\nReceipt number: ").append(receiptNumber);
-        s.append("\n\nID       Item                  Price      Qty     Subtotal      Discount");
+        s.append("\n\nID       Item                   Price      Qty     Subtotal      Discount");
         s.append("\n------------------------------------------------------------------------\n");
 
+        calculateTotals();
+        
         for (LineItem item : lineItems) {
             s.append(item.getProduct().getProductID()).append("    ");
             s.append(item.getProduct().getProductDescription()).append("    ");
@@ -72,9 +82,6 @@ public class ConsoleReceiptOutput implements ReceiptOutputStrategy {
             s.append(item.getQuantity()).append("     ");
             s.append(formatter.format(item.getCalculatedSubTotal())).append("        ");
             s.append(formatter.format(item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity()))).append("\n");
-
-            netTotal += item.getCalculatedSubTotal();
-            totalSaved += item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity());
         }
         System.out.println(s);
 

@@ -21,6 +21,8 @@ public class GuiReceiptOutput implements ReceiptOutputStrategy {
     private final String INDENT_TOTALS = "                                                                   ";
     private int receiptNumber = 0;
     private LineItem[] lineItems;
+    private double netTotal = 0;
+    private double totalSaved = 0;
 
     public GuiReceiptOutput() {
         lineItems = new LineItem[0];
@@ -48,13 +50,19 @@ public class GuiReceiptOutput implements ReceiptOutputStrategy {
         tempItems[lineItems.length] = item;
         lineItems = tempItems;
     }
-
+    
+    private void calculateTotals () {
+        for (LineItem item : lineItems) {
+            netTotal += item.getCalculatedSubTotal();
+            totalSaved += item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity());
+        }
+    }
+    
     @Override
     public void outputReceipt(String customerID) {
         CustomerDatabase customerDB = new CustomerDatabase();
         receiptNumber++;
-        double netTotal = 0;
-        double totalSaved = 0;
+
         Date date = new Date();
         StringBuilder s = new StringBuilder();
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
@@ -66,6 +74,8 @@ public class GuiReceiptOutput implements ReceiptOutputStrategy {
         s.append("\n\nID            Item                                   Price      Qty    Subtotal      Discount");
         s.append("\n--------------------------------------------------------------------------------------------\n");
 
+        calculateTotals();
+        
         for (LineItem item : lineItems) {
             s.append(item.getProduct().getProductID()).append("    ");
             s.append(item.getProduct().getProductDescription()).append("    ");
@@ -73,10 +83,8 @@ public class GuiReceiptOutput implements ReceiptOutputStrategy {
             s.append(item.getQuantity()).append("     ");
             s.append(formatter.format(item.getCalculatedSubTotal())).append("        ");
             s.append(formatter.format(item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity()))).append("\n");
-
-            netTotal += item.getCalculatedSubTotal();
-            totalSaved += item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity());
         }
+        
         JOptionPane.showMessageDialog(null, s
                 + INDENT_TOTALS + "--------------------------------------\n"
                 + INDENT_TOTALS + "Net Total:    " + formatter.format(netTotal) + "\n"
