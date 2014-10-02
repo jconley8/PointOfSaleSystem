@@ -16,12 +16,24 @@ import java.text.NumberFormat;
  * @author Josh
  */
 public class ConsoleReceiptOutput implements ReceiptOutputStrategy {
+    
+    private final String THANKS_FOR_SHOPPING = "Thank you for shopping at Kohl's!";
+    private final String DATE_OF_SALE = "\nDate of Sale: ";
+    private final String CUSTOMER = "\nCustomer #: ";
+    private final String RECEIPT_NUMBER = "\nReceipt number: ";
+    private final String RECEIPT_LABELS = "\n\nID            Item                                   Price      Qty    Subtotal      Discount";
+    private final String RECEIPT_BORDER = "\n--------------------------------------------------------------------------------------------\n";
+    private final String TOTALS_BORDER = "--------------------------------------";
+    private final String NET_TOTAL = "Net Total: ";
+    private final String TOTAL_SAVED = "Total Saved: ";
+    private final String TOTAL_DUE = "Total Due: ";
+    private final String NEW_LINE = "\n";
 
     private final String INDENT_TOTALS = "                                                    ";
     private int receiptNumber = 0;
-    private LineItem[] lineItems;
     private double netTotal = 0;
     private double totalSaved = 0;
+    private LineItem[] lineItems;
 
     public ConsoleReceiptOutput() {
         lineItems = new LineItem[0];
@@ -61,34 +73,34 @@ public class ConsoleReceiptOutput implements ReceiptOutputStrategy {
     public void outputReceipt(String customerID) {
         CustomerDatabase customerDB = new CustomerDatabase();
         receiptNumber++;
-
         Date date = new Date();
         StringBuilder s = new StringBuilder();
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
-        s.append("Thank you for shopping at Kohl's!");
-        s.append("\nDate of Sale: ").append(date.toString());
-        s.append("\nCustomer #").append(customerID).append(": ").append(customerDB.findCustomerByID(customerID).getCustomerFullName());
-        s.append("\nReceipt number: ").append(receiptNumber);
-        s.append("\n\nID       Item                   Price      Qty     Subtotal      Discount");
-        s.append("\n------------------------------------------------------------------------\n");
+        s.append(THANKS_FOR_SHOPPING);
+        s.append(DATE_OF_SALE).append(date.toString());
+        s.append(CUSTOMER).append(customerID).append(": ").append(customerDB.findCustomerByID(customerID).getCustomerFullName());
+        s.append(RECEIPT_NUMBER).append(receiptNumber);
+        s.append(RECEIPT_LABELS);
+        s.append(RECEIPT_BORDER);
 
         calculateTotals();
-        
+
         for (LineItem item : lineItems) {
             s.append(item.getProduct().getProductID()).append("    ");
             s.append(item.getProduct().getProductDescription()).append("    ");
             s.append(formatter.format(item.getProduct().getProductPrice())).append("     ");
             s.append(item.getQuantity()).append("     ");
             s.append(formatter.format(item.getCalculatedSubTotal())).append("        ");
-            s.append(formatter.format(item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity()))).append("\n");
+            s.append(formatter.format(item.getProduct().getDiscountAmount(item.getQuantity()))).append(NEW_LINE);
+//          s.append(formatter.format(item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity()))).append("\n");
         }
         System.out.println(s);
 
-        System.out.println(INDENT_TOTALS + "--------------------");
-        System.out.println(INDENT_TOTALS + "Net Total:    " + formatter.format(netTotal));
-        System.out.println(INDENT_TOTALS + "Total Saved:  " + formatter.format(totalSaved));
-        System.out.println(INDENT_TOTALS + "Total Due:    " + formatter.format((netTotal - totalSaved)) + "\n");
+        System.out.println(INDENT_TOTALS + TOTALS_BORDER);
+        System.out.println(INDENT_TOTALS + NET_TOTAL + formatter.format(netTotal));
+        System.out.println(INDENT_TOTALS + TOTAL_SAVED + formatter.format(totalSaved));
+        System.out.println(INDENT_TOTALS + TOTAL_DUE + formatter.format((netTotal - totalSaved)) + NEW_LINE);
         lineItems = new LineItem[0];
     }
 }

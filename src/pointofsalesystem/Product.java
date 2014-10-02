@@ -23,6 +23,11 @@ public class Product {
         this.productPrice = productPrice;
         this.discount = discount;
     }
+    
+    public double getDiscountAmount (double quantity) {
+        return discount.getDiscountAmount(productPrice, quantity);
+    }
+    
 
     public final String getProductID() {
         return productID;
@@ -52,7 +57,7 @@ public class Product {
         //validation needed
         this.productPrice = productPrice;
     }
-
+    
     public final DiscountStrategy getDiscount() {
         return discount;
     }

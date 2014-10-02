@@ -18,6 +18,18 @@ import javax.swing.JOptionPane;
  */
 public class GuiReceiptOutput implements ReceiptOutputStrategy {
 
+    private final String THANKS_FOR_SHOPPING = "Thank you for shopping at Kohl's!";
+    private final String DATE_OF_SALE = "\nDate of Sale: ";
+    private final String CUSTOMER = "\nCustomer: ";
+    private final String RECEIPT_NUMBER = "\nReceipt number: ";
+    private final String RECEIPT_LABELS = "\n\nID            Item                                   Price      Qty    Subtotal      Discount";
+    private final String RECEIPT_BORDER = "\n--------------------------------------------------------------------------------------------\n";
+    private final String TOTALS_BORDER = "--------------------------------------";
+    private final String NET_TOTAL = "Net Total:                ";
+    private final String TOTAL_SAVED = "Total Saved:           ";
+    private final String TOTAL_DUE = "Total Due:               ";
+    private final String NEW_LINE = "\n";
+
     private final String INDENT_TOTALS = "                                                                   ";
     private int receiptNumber = 0;
     private LineItem[] lineItems;
@@ -50,14 +62,14 @@ public class GuiReceiptOutput implements ReceiptOutputStrategy {
         tempItems[lineItems.length] = item;
         lineItems = tempItems;
     }
-    
-    private void calculateTotals () {
+
+    private void calculateTotals() {
         for (LineItem item : lineItems) {
             netTotal += item.getCalculatedSubTotal();
             totalSaved += item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity());
         }
     }
-    
+
     @Override
     public void outputReceipt(String customerID) {
         CustomerDatabase customerDB = new CustomerDatabase();
@@ -67,29 +79,30 @@ public class GuiReceiptOutput implements ReceiptOutputStrategy {
         StringBuilder s = new StringBuilder();
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
-        s.append("Thank you for shopping at Kohl's!");
-        s.append("\nDate of Sale: ").append(date.toString());
-        s.append("\nCustomer: ").append(customerDB.findCustomerByID(customerID).getCustomerFullName());
-        s.append("\nReceipt number: ").append(receiptNumber);
-        s.append("\n\nID            Item                                   Price      Qty    Subtotal      Discount");
-        s.append("\n--------------------------------------------------------------------------------------------\n");
+        s.append(THANKS_FOR_SHOPPING);
+        s.append(DATE_OF_SALE).append(date.toString());
+        s.append(CUSTOMER).append(customerDB.findCustomerByID(customerID).getCustomerFullName());
+        s.append(RECEIPT_NUMBER).append(receiptNumber);
+        s.append(RECEIPT_LABELS);
+        s.append(RECEIPT_BORDER);
 
         calculateTotals();
-        
+
         for (LineItem item : lineItems) {
             s.append(item.getProduct().getProductID()).append("    ");
             s.append(item.getProduct().getProductDescription()).append("    ");
             s.append(formatter.format(item.getProduct().getProductPrice())).append("     ");
             s.append(item.getQuantity()).append("     ");
             s.append(formatter.format(item.getCalculatedSubTotal())).append("        ");
-            s.append(formatter.format(item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity()))).append("\n");
+            s.append(formatter.format(item.getProduct().getDiscountAmount(item.getQuantity()))).append(NEW_LINE);
+//            s.append(formatter.format(item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity()))).append("\n");
         }
-        
+
         JOptionPane.showMessageDialog(null, s
-                + INDENT_TOTALS + "--------------------------------------\n"
-                + INDENT_TOTALS + "Net Total:    " + formatter.format(netTotal) + "\n"
-                + INDENT_TOTALS + "Total Saved:  " + formatter.format(totalSaved) + "\n"
-                + INDENT_TOTALS + "Total Due:    " + formatter.format((netTotal - totalSaved)) + "\n");
+                + INDENT_TOTALS + TOTALS_BORDER + NEW_LINE
+                + INDENT_TOTALS + NET_TOTAL + formatter.format(netTotal) + NEW_LINE
+                + INDENT_TOTALS + TOTAL_SAVED + formatter.format(totalSaved) + NEW_LINE
+                + INDENT_TOTALS + TOTAL_DUE + formatter.format((netTotal - totalSaved)) + NEW_LINE);
 
         lineItems = new LineItem[0];
     }
