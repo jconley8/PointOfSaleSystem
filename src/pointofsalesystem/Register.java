@@ -11,31 +11,33 @@ package pointofsalesystem;
  */
 public class Register {
 
+    private String customerID;
     private ReceiptOutputStrategy outputStrategy;
 
     public Register(ReceiptOutputStrategy outputStrategy) {
         this.outputStrategy = outputStrategy;
-    }   
+    }
 
+    public final void startSale(String customerID) {
+        this.customerID = customerID;
+    }
 
-    public void ScanItem(String productID, double quantity) {
+    public final void ScanItem(String productID, double quantity) {
         //validation needed        
         outputStrategy.addLineItem(productID, quantity);
 
     }
 
-    public void printReceipt() {
-        outputStrategy.outputReceipt();
+    public final void printReceipt() {
+        outputStrategy.outputReceipt(customerID);
     }
 
-    public ReceiptOutputStrategy getOutputStrategy() {
+    public final ReceiptOutputStrategy getOutputStrategy() {
         return outputStrategy;
     }
 
-    public void setOutputStrategy(ReceiptOutputStrategy outputStrategy) {
+    public final void setOutputStrategy(ReceiptOutputStrategy outputStrategy) {
         this.outputStrategy = outputStrategy;
     }
-    
-    
 
 }

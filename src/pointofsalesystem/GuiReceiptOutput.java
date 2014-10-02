@@ -11,26 +11,30 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * 
- * 
- * 
+ *
+ *
+ *
  * @author Josh
  */
-public class GuiReceipt implements ReceiptOutputStrategy {
-    
-    private final String INDENT_TOTALS = "                                                                 ";
+public class GuiReceiptOutput implements ReceiptOutputStrategy {
+
+    private final String INDENT_TOTALS = "                                                                   ";
     private int receiptNumber = 0;
     private LineItem[] lineItems;
 
-    public GuiReceipt() {
+    public GuiReceiptOutput() {
         lineItems = new LineItem[0];
     }
 
     /**
-     * This class adds a line item to the receipt after given productID and quantity
+     * This class adds a line item to the receipt after given productID and
+     * quantity
+     *
      * @param productID - Unique identification number for a product
-     * @param quantity - The quantity of the product that the customer is purchasing
+     * @param quantity - The quantity of the product that the customer is
+     * purchasing
      */
+    @Override
     public void addLineItem(String productID, double quantity) {
         // needs validation        
         LineItem item = new LineItem(productID, quantity);
@@ -46,7 +50,8 @@ public class GuiReceipt implements ReceiptOutputStrategy {
     }
 
     @Override
-    public void outputReceipt() {
+    public void outputReceipt(String customerID) {
+        CustomerDatabase customerDB = new CustomerDatabase();
         receiptNumber++;
         double netTotal = 0;
         double totalSaved = 0;
@@ -54,8 +59,9 @@ public class GuiReceipt implements ReceiptOutputStrategy {
         StringBuilder s = new StringBuilder();
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
-        s.append("Thank you for shopping at Kohls!");
+        s.append("Thank you for shopping at Kohl's!");
         s.append("\nDate of Sale: ").append(date.toString());
+        s.append("\nCustomer: ").append(customerDB.findCustomerByID(customerID).getCustomerFullName());
         s.append("\nReceipt number: ").append(receiptNumber);
         s.append("\n\nID            Item                                   Price      Qty    Subtotal      Discount");
         s.append("\n--------------------------------------------------------------------------------------------\n");
@@ -71,11 +77,11 @@ public class GuiReceipt implements ReceiptOutputStrategy {
             netTotal += item.getCalculatedSubTotal();
             totalSaved += item.getProduct().getDiscount().getDiscountAmount(item.getProduct().getProductPrice(), item.getQuantity());
         }
-        JOptionPane.showMessageDialog(null, s + 
-                            INDENT_TOTALS + "--------------------------------------\n" +
-                            INDENT_TOTALS + "Net Total:    " + formatter.format(netTotal) + "\n" +
-                            INDENT_TOTALS + "Total Saved:  " + formatter.format(totalSaved) + "\n" +
-                            INDENT_TOTALS + "Total Due:    " + formatter.format((netTotal - totalSaved)) + "\n");
+        JOptionPane.showMessageDialog(null, s
+                + INDENT_TOTALS + "--------------------------------------\n"
+                + INDENT_TOTALS + "Net Total:    " + formatter.format(netTotal) + "\n"
+                + INDENT_TOTALS + "Total Saved:  " + formatter.format(totalSaved) + "\n"
+                + INDENT_TOTALS + "Total Due:    " + formatter.format((netTotal - totalSaved)) + "\n");
 
         lineItems = new LineItem[0];
     }

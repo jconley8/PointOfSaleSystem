@@ -20,49 +20,49 @@ public class LineItem {
     public LineItem(String productID, double quantity) {
         //validation needed
         this.quantity = quantity;
-        this.product = db.findProduct(productID);
+        this.product = db.findProductByID(productID);
     }
 
-    public double getCalculatedGrandTotal() {
-        return (db.findProduct(product.getProductID()).getProductPrice());
+    public final double getCalculatedGrandTotal() {
+        return (db.findProductByID(product.getProductID()).getProductPrice());
     }
 
-    public double getCalculatedSubTotal() {
+    public final double getCalculatedSubTotal() {
         return product.getProductPrice() * quantity;
     }
 
-    public double getSubtotal() {
+    public final double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(double subtotal) {
+    public final void setSubtotal(double subtotal) {
         //validation needed
         this.subtotal = subtotal;
     }
 
-    public double getGrandTotal() {
+    public final double getGrandTotal() {
         return grandTotal;
     }
 
-    public void setGrandTotal(double grandTotal) {
+    public final void setGrandTotal(double grandTotal) {
         //validation needed
         this.grandTotal = grandTotal;
     }
 
-    public double getQuantity() {
+    public final double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public final void setQuantity(double quantity) {
         //validation needed
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
+    public final Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public final void setProduct(Product product) {
         //validation needed
         this.product = product;
     }

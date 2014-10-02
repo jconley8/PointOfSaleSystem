@@ -10,7 +10,8 @@ package pointofsalesystem;
  * @author Josh
  */
 public interface ReceiptOutputStrategy {
- 
-    public abstract void outputReceipt();
+
+    public abstract void outputReceipt(String customerID);
+
     public abstract void addLineItem(String productID, double quantity);
 }

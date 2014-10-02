@@ -10,25 +10,30 @@ import java.text.NumberFormat;
 
 /**
  *
- * 
- * 
- * 
+ *
+ *
+ *
  * @author Josh
  */
-public class ConsoleReceipt implements ReceiptOutputStrategy {
+public class ConsoleReceiptOutput implements ReceiptOutputStrategy {
 
+    private final String INDENT_TOTALS = "                                                    ";
     private int receiptNumber = 0;
     private LineItem[] lineItems;
 
-    public ConsoleReceipt() {
+    public ConsoleReceiptOutput() {
         lineItems = new LineItem[0];
     }
 
     /**
-     * This class adds a line item to the receipt after given productID and quantity
+     * This class adds a line item to the receipt after given productID and
+     * quantity
+     *
      * @param productID - Unique identification number for a product
-     * @param quantity - The quantity of the product that the customer is purchasing
+     * @param quantity - The quantity of the product that the customer is
+     * purchasing
      */
+    @Override
     public void addLineItem(String productID, double quantity) {
         // needs validation        
         LineItem item = new LineItem(productID, quantity);
@@ -44,7 +49,8 @@ public class ConsoleReceipt implements ReceiptOutputStrategy {
     }
 
     @Override
-    public void outputReceipt() {
+    public void outputReceipt(String customerID) {
+        CustomerDatabase customerDB = new CustomerDatabase();
         receiptNumber++;
         double netTotal = 0;
         double totalSaved = 0;
@@ -52,8 +58,9 @@ public class ConsoleReceipt implements ReceiptOutputStrategy {
         StringBuilder s = new StringBuilder();
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
-        s.append("Thank you for shopping at Kohls!");
+        s.append("Thank you for shopping at Kohl's!");
         s.append("\nDate of Sale: ").append(date.toString());
+        s.append("\nCustomer: ").append(customerDB.findCustomerByID(customerID).getCustomerFullName());
         s.append("\nReceipt number: ").append(receiptNumber);
         s.append("\n\nID       Item                  Price      Qty     Subtotal      Discount");
         s.append("\n------------------------------------------------------------------------\n");
@@ -71,10 +78,10 @@ public class ConsoleReceipt implements ReceiptOutputStrategy {
         }
         System.out.println(s);
 
-        System.out.println("                                                   --------------------");
-        System.out.println("                                                   Net Total:    " + formatter.format(netTotal));
-        System.out.println("                                                   Total Saved:  " + formatter.format(totalSaved));
-        System.out.println("                                                   Total Due:    " + formatter.format((netTotal - totalSaved)) + "\n");
+        System.out.println(INDENT_TOTALS + "--------------------");
+        System.out.println(INDENT_TOTALS + "Net Total:    " + formatter.format(netTotal));
+        System.out.println(INDENT_TOTALS + "Total Saved:  " + formatter.format(totalSaved));
+        System.out.println(INDENT_TOTALS + "Total Due:    " + formatter.format((netTotal - totalSaved)) + "\n");
         lineItems = new LineItem[0];
     }
 }

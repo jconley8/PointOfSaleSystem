@@ -10,16 +10,17 @@ package pointofsalesystem;
  * @author Josh
  */
 public class Startup {
-
+    
     public static void main(String[] args) {
-        Register register = new Register(new GuiReceipt());
-
+        Register register = new Register(new GuiReceiptOutput());
+        
+        register.startSale("5420");
         register.ScanItem("A1504", 1);
         register.ScanItem("C5933", 5);
         register.printReceipt();
 
-        register.ScanItem("T4339", 1);
-        register.ScanItem("B7821", 3);
-        register.printReceipt();
+//        register.ScanItem("T4339", 1);
+//        register.ScanItem("B7821", 3);
+//        register.printReceipt();
     }
 }

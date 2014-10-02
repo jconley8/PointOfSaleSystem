@@ -24,40 +24,40 @@ public class Product {
         this.discount = discount;
     }
 
-    public String getProductID() {
+    public final String getProductID() {
         return productID;
     }
 
-    public void setProductID(String productID) {
-        if(productID == null || productID.isEmpty()) {
+    public final void setProductID(String productID) {
+        if (productID == null || productID.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.productID = productID;
     }
 
-    public String getProductDescription() {
+    public final String getProductDescription() {
         return productDescription;
     }
 
-    public void setProductDescription(String productDescription) {
+    public final void setProductDescription(String productDescription) {
         //validation needed
         this.productDescription = productDescription;
     }
 
-    public double getProductPrice() {
+    public final double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(double productPrice) {
+    public final void setProductPrice(double productPrice) {
         //validation needed
         this.productPrice = productPrice;
     }
 
-    public DiscountStrategy getDiscount() {
+    public final DiscountStrategy getDiscount() {
         return discount;
     }
 
-    public void setDiscount(DiscountStrategy discount) {
+    public final void setDiscount(DiscountStrategy discount) {
         //validation needed
         this.discount = discount;
     }

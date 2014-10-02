@@ -30,15 +30,14 @@ public class FlatRateDiscount implements DiscountStrategy {
         return (price * quantity) - flatRateDiscount;
     }
 
-    public double getFlatRateDiscount() {
+    public final double getFlatRateDiscount() {
         return flatRateDiscount;
     }
 
-    public void setFlatRateDiscount(double flatRateDiscount) {
+    public final void setFlatRateDiscount(double flatRateDiscount) {
         this.flatRateDiscount = flatRateDiscount;
     }
-    
-    
+
     //TEST CODE
     public static void main(String[] args) {
         FlatRateDiscount flatRate = new FlatRateDiscount(10.00);

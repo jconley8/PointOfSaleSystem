@@ -30,16 +30,15 @@ public class PercentOffDiscount implements DiscountStrategy {
         return (price * quantity) - (price * quantity * percentOff);
     }
 
-    public double getPercentOff() {
+    public final double getPercentOff() {
         return percentOff;
     }
 
-    public void setPercentOff(double percentOff) {
+    public final void setPercentOff(double percentOff) {
         //validation needed
         this.percentOff = percentOff;
     }
 
-    
     //TEST CODE
     public static void main(String[] args) {
         PercentOffDiscount percentOff = new PercentOffDiscount(.20);

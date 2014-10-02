@@ -6,13 +6,13 @@
 package pointofsalesystem;
 
 /**
- * This class represents a simulation of a database that holds information in products.
- * It is responsible for managing specific product information and searching for a specific
- * product when provided a productID.
- * 
+ * This class represents a simulation of a database that holds information in
+ * products. It is responsible for managing specific product information and
+ * searching for a specific product when provided a productID.
+ *
  * @author Josh
  * @version 1.00
- * 
+ *
  */
 public class ProductDatabase {
 
@@ -23,8 +23,7 @@ public class ProductDatabase {
         new Product("C5933", "Woman's (3) Socks  ", 10.00, new QuantityDiscount(3, .25))
     };
 
-    
-    public Product findProduct(String productID) {
+    public Product findProductByID(String productID) {
         Product product = null;
         //validation needed
 
@@ -37,9 +36,9 @@ public class ProductDatabase {
     }
 
     public static void main(String[] args) {
-        
+
         ProductDatabase db = new ProductDatabase();
 
-        System.out.println(db.findProduct("A1504").getProductDescription());
+        System.out.println(db.findProductByID("A1504").getProductDescription());
     }
 }

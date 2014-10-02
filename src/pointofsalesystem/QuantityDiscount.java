@@ -47,25 +47,24 @@ public class QuantityDiscount implements DiscountStrategy {
         return totalAfterDiscount;
     }
 
-    public double getMinimumQuantityForDiscount() {
+    public final double getMinimumQuantityForDiscount() {
         return minimumQuantityForDiscount;
     }
 
-    public void setMinimumQuantityForDiscount(double minimumQuantityForDiscount) {
+    public final void setMinimumQuantityForDiscount(double minimumQuantityForDiscount) {
         //validation needed
         this.minimumQuantityForDiscount = minimumQuantityForDiscount;
     }
 
-    public double getPercentOff() {
+    public final double getPercentOff() {
         return percentOff;
     }
 
-    public void setPercentOff(double percentOff) {
+    public final void setPercentOff(double percentOff) {
         //validation needed
         this.percentOff = percentOff;
     }
 
-    
     //TEST CODE
     public static void main(String[] args) {
         QuantityDiscount quantityDisc = new QuantityDiscount(3, .20);

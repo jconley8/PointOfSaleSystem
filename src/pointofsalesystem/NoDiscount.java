@@ -11,10 +11,6 @@ package pointofsalesystem;
  */
 public class NoDiscount implements DiscountStrategy {
 
-    public NoDiscount() {
-    
-    }
-
     @Override
     public double getDiscountAmount(double price, double quantity) {
         //validation needed
