@@ -21,9 +21,9 @@ public class ConsoleReceiptOutput implements ReceiptOutputStrategy {
     private final String DATE_OF_SALE = "\nDate of Sale: ";
     private final String CUSTOMER = "\nCustomer #: ";
     private final String RECEIPT_NUMBER = "\nReceipt number: ";
-    private final String RECEIPT_LABELS = "\n\nID            Item                                   Price      Qty    Subtotal      Discount";
-    private final String RECEIPT_BORDER = "\n--------------------------------------------------------------------------------------------\n";
-    private final String TOTALS_BORDER = "--------------------------------------";
+    private final String RECEIPT_LABELS = "\n\nID       Item                   Price      Qty    Subtotal      Discount";
+    private final String RECEIPT_BORDER = "\n-------------------------------------------------------------------------\n";
+    private final String TOTALS_BORDER = "-------------------";
     private final String NET_TOTAL = "Net Total: ";
     private final String TOTAL_SAVED = "Total Saved: ";
     private final String TOTAL_DUE = "Total Due: ";
